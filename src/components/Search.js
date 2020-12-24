@@ -18,7 +18,7 @@ const Search = () => {
     }, [term]);
 
     useEffect(() => {
-        const Search = async () => {
+        const search = async () => {
             const { data } = await axios.get('https://en.wikipedia.org/w/api.php', {
                 params: {
                     action : 'query',
@@ -30,7 +30,9 @@ const Search = () => {
             });
             setResults(data.query.search);
         };
-        Search();
+        if (debouncedTerm) {
+            search();
+        }
     }, [debouncedTerm])
 
     const renderedResults = results.map((result) => {
